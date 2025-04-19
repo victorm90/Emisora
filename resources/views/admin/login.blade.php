@@ -40,6 +40,22 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-6">
+                <!-- Alertas Globales -->
+                @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                    <strong>
+                        <i class="bi bi-exclamation-triangle-fill me-2" style="position: relative; top: -2px;"></i>
+                        Error:
+                    </strong>
+                    <ul class="mb-0 mt-2">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+    
                 <div class="card border-0 shadow-lg overflow-hidden">
                     <div class="row g-0">
                         <!-- Sección Izquierda (Branding/Imagen) -->
@@ -47,13 +63,6 @@
                             <div class="text-white px-4 py-5">
                                 <h2 class="mb-4 fw-bold">Bienvenido</h2>
                                 <p class="small">Accede a tu cuenta para gestionar tu panel administrativo.</p>
-                                @if ($errors->any())
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <strong>Error!</strong> {{ $errors->first() }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                @endif
                             </div>                            
                         </div>                        
                        
@@ -64,7 +73,7 @@
                                     <h3 class="fw-bold mb-3">Iniciar Sesión</h3>
                                     <p class="text-muted small">Ingresa tus credenciales</p>
                                 </div>                                
-
+    
                                 <form action="{{ route('login.request') }}" method="POST">
                                     @csrf
                                     <!-- Email -->
@@ -75,14 +84,12 @@
                                                 <i class="bi bi-envelope text-muted"></i>
                                             </span>
                                             <input type="email" name="email" id="email"
-                                                class="form-control border-start-0 @error('email') is-invalid @enderror"
-                                                placeholder="nombre@ejemplo.com" value="{{ old('email') }}">
+                                                class="form-control border-start-0"
+                                                placeholder="nombre@ejemplo.com" 
+                                                value="{{ old('email') }}">
                                         </div>
-                                        @error('email')
-                                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                                        @enderror
                                     </div>
-
+    
                                     <!-- Contraseña -->
                                     <div class="mb-4">
                                         <label class="form-label small text-muted mb-1">Contraseña</label>
@@ -91,27 +98,21 @@
                                                 <i class="bi bi-lock text-muted"></i>
                                             </span>
                                             <input type="password" name="password" id="password"
-                                                class="form-control border-start-0 @error('password') is-invalid @enderror"
+                                                class="form-control border-start-0"
                                                 placeholder="••••••••">
                                         </div>
-                                        @error('password')
-                                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                                        @enderror
                                     </div>
-
+    
                                     <!-- Recordar y Olvidé -->
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember"
-                                                id="remember">
-                                            <label class="form-check-label small text-muted" for="remember">Recordar
-                                                sesión</label>
+                                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                            <label class="form-check-label small text-muted" for="remember">Recordar sesión</label>
                                         </div>
                                     </div>
-
+    
                                     <!-- Botón -->
-                                    <button type="submit"
-                                        class="btn btn-primary w-100 mb-3 py-2 fw-bold">Acceder</button>
+                                    <button type="submit" class="btn btn-primary w-100 mb-3 py-2 fw-bold">Acceder</button>
                                 </form>
                             </div>
                         </div>

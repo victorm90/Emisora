@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\LoginRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class AdminController extends Controller
 {
@@ -29,24 +29,15 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string|min:3',
-        ]);
-
-        $remember = $request->has('remember');
-
-        if (!Auth::guard('admin')->attempt($credentials, $remember)) {
-            throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
-            ]);
+        $data = $request->validated();
+    
+        if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            return redirect('admin/dashboard');
         }
-
-        $request->session()->regenerate();
-
-        return redirect()->intended('admin/dashboard');
+    
+        return redirect()->back()->withErrors(['credenciales' => 'Credenciales inválidas']);
     }
 
     /**
@@ -78,7 +69,7 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-       Auth::guard('admin')->logout();
-       return redirect()->route('login');
+        Auth::guard('admin')->logout();
+        return redirect()->route('login');
     }
 }
