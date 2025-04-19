@@ -18,9 +18,8 @@ class Admin
     {
         
         if(!Auth::guard('admin')->check()){
-            return redirect('/admin/login');
-        }
-        
+            return redirect('/')->with('error', 'Acceso no autorizado: Violación de seguridad detectada.');
+        }        
         return $next($request);
     }
 }
