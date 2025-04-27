@@ -117,6 +117,7 @@
                     </ul>
                 </div>
 
+                <!-- Mensajes -->
                 <div class="dropdown" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="block rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60" @click="toggle">
                         <svg width="20" height="20" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,6 +177,7 @@
                         </template>
                     </ul>
                 </div>
+                <!-- Notificaciones -->
                 <div class="dropdown" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="relative block rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60" @click="toggle">
                         <svg width="20" height="20" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -245,6 +247,7 @@
                         </template>
                     </ul>
                 </div>
+                <!-- Menu de informacion de usuario -->
                 <div class="dropdown flex-shrink-0" x-data="dropdown" @click.outside="open = false">
                     <a href="javascript:;" class="group relative" @click="toggle()">
                         <span><img class="h-9 w-9 rounded-full object-cover saturate-50 group-hover:saturate-100" src="{{ asset('storage/' . Auth::guard('admin')->user()->image) }}" alt="image"></span>

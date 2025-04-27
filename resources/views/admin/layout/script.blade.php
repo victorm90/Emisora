@@ -650,3 +650,5 @@
         }));
     });
 </script>
+
+<script src="{{ asset('Admin/jquery-3.7.1.min.js') }}"></script>

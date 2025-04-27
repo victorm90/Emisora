@@ -16,6 +16,7 @@ class AdminServices
     {
         if (Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
 
+            
             if (!empty($data["remember"])) {
                 setcookie("email", $data["email"], time() + 3600);
                 setcookie("password", $data["password"], time() + 3600);

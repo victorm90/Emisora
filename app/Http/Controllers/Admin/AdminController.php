@@ -65,7 +65,8 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        //
+        $titulo = 'Actualizar Contraseña';
+        return view('admin.update_password',compact('titulo'));
     }
 
     /**

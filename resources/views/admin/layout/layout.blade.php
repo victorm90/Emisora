@@ -14,6 +14,8 @@
         
         @stack('styles')
 
+        <link rel="stylesheet" href="{{ asset('Admin/cdn/sweetalert2.min.css')}}">
+        <link href="{{ asset('Admin/fontawesome/css/all.min.css') }}" rel="stylesheet">
 
     </head>
 
@@ -64,6 +66,8 @@
         </div>
         
         @include('admin.layout.script')
+
+        <script src="{{ asset('Admin/cdn/js/sweetalert2@11.js')}}"></script>
 
         @stack('js')
     </body>
