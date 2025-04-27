@@ -3,11 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\LoginRequest;
 use App\Models\Admin;
+use App\Services\Admin\AdminServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    
+    protected $adminService;
+
+    public function __construct(AdminServices $adminService)
+    {
+        $this->adminService = $adminService;
+    }
+    
+    
     /**
      * Display a listing of the resource.
      */
@@ -28,9 +40,16 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
-        //
+        $data = $request->validated();
+        $loginStatus = $this->adminService->login($data);
+
+        if ($loginStatus == 1) {
+            return redirect()->route('dashboard.index');
+        } else {
+            return redirect()->back()->withErrors(['credenciales' => 'Credenciales inválidas']);
+        }
     }
 
     /**
@@ -57,11 +76,11 @@ class AdminController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Admin $admin)
     {
-        //
+        Auth::guard('admin')->logout();
+        return redirect()->route('login');
     }
+
+    
 }
